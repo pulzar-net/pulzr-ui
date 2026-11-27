@@ -22,7 +22,7 @@ export default function DeviceImage({
   const label = hardware?.name ?? name ?? 'Device';
   const photo = hardware?.photo;
   return (
-    <span className={`${styles.frame} ${styles[size]} ${stage ? styles.stage : ''}`}>
+    <span className={`${styles.frame} ${styles[size]} ${stage ? styles.stage : ''} ${photo ? styles.photo : ''}`}>
       {photo ? (
         <img src={photo.src} alt={label} title={`${label}. Photo: ${photo.credit}, ${photo.license}`} loading="lazy" />
       ) : (

@@ -34,9 +34,9 @@
     "react": ">=18"
   },
   "devDependencies": {
-    "@types/react": "^18.3.12",
-    "react": "^18.3.1",
-    "typescript": "~5.8.3"
+    "@types/react": "^19.3.1",
+    "react": "^19.3.1",
+    "typescript": "~7.0.2"
   },
   "scripts": {
     "check": "tsc --noEmit && node scripts/check-tokens.mjs"

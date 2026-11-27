@@ -1,0 +1,77 @@
+# A v* tag publishes @pulzr/ui to npm, with provenance, and makes
+# the GitHub release with the annotated tag's message as its notes.
+#
+# npm is reached by OIDC as this repository's trusted publisher, so no token
+# is stored. npm attaches a trusted publisher only to a package that exists:
+# the first version goes out either by hand or through a short-lived
+# NPM_TOKEN secret (deleted once the trusted publisher is set). A version
+# already on npm is skipped, so re-running a tag is safe.
+
+name: release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write # the GitHub release
+  id-token: write # npm trusted publishing, and provenance
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+          registry-url: https://registry.npmjs.org
+      - name: The tag is the package version
+        run: test "$GITHUB_REF_NAME" = "v$(node -p 'require("./package.json").version')"
+      - run: npm ci
+      - name: The package checks
+        run: npm run check
+      # Trusted publishing needs npm 11.5.1 or later.
+      - run: npm install -g npm@11
+      - name: Publish to npm
+        env:
+          # Only for the first version; empty once the trusted publisher is set.
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          name=$(node -p 'require("./package.json").name')
+          version=$(node -p 'require("./package.json").version')
+          if npm view "$name@$version" version >/dev/null 2>&1; then
+            echo "$name@$version is already on npm"
+          else
+            npm publish --provenance --access public
+          fi
+      - name: Release notes from the tag
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          # The annotated tag's message (git tag -a vX.Y.Z --cleanup=whitespace
+          # -F notes.md), else GitHub's generated notes; never none.
+          set -euo pipefail
+          notes="${RUNNER_TEMP}/notes.md"
+          git fetch -q --force origin "refs/tags/${TAG}:refs/tags/${TAG}"
+          : > "${notes}"
+          if [ "$(git cat-file -t "refs/tags/${TAG}")" = tag ]; then
+            git cat-file tag "refs/tags/${TAG}" | sed '1,/^$/d; /^-----BEGIN [A-Z ]*SIGNATURE-----$/,$d' > "${notes}"
+          fi
+          if ! awk -v t="${TAG}" 'NF && $0 != t { f = 1 } END { exit !f }' "${notes}"; then
+            gh api "repos/${GITHUB_REPOSITORY}/releases/generate-notes" -f tag_name="${TAG}" -q .body > "${notes}"
+            awk 'NF && !/Full Changelog/ { f = 1 } END { exit !f }' "${notes}" || {
+              echo "::error::${TAG} has no release notes: tag it with git tag -a and the notes as its message"; exit 1; }
+          fi
+      - name: GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
+            echo "release $GITHUB_REF_NAME exists"
+          else
+            gh release create "$GITHUB_REF_NAME" --verify-tag --title "$GITHUB_REF_NAME" --notes-file "${RUNNER_TEMP}/notes.md"
+          fi

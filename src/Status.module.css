@@ -1,0 +1,114 @@
+/* ---- a state ---- */
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-primary);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.dot {
+  flex-shrink: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--dot);
+}
+
+.live {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--dot) 22%, transparent);
+}
+
+.ok { --dot: var(--status-success); }
+.info { --dot: var(--status-info); }
+.off { --dot: var(--status-off); color: var(--text-secondary); }
+.warn { --dot: var(--status-warning); color: var(--status-warning); }
+.bad { --dot: var(--status-error); color: var(--status-error); }
+
+/* ---- a radio ---- */
+.radio {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.chip {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  border-radius: var(--radius-sm);
+  background: color-mix(in srgb, var(--radio) 16%, transparent);
+}
+
+.chip svg {
+  fill: none;
+  stroke: var(--radio);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.sm .chip { width: 18px; height: 18px; }
+.sm svg { width: 11px; height: 11px; stroke-width: 2.4; }
+.md .chip { width: 26px; height: 26px; border-radius: var(--radius-md); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--radio) 28%, transparent); }
+.md svg { width: 15px; height: 15px; stroke-width: 2; }
+.lg .chip { width: 32px; height: 32px; border-radius: 8px; box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--radio) 28%, transparent); }
+.lg svg { width: 17px; height: 17px; stroke-width: 1.9; }
+
+.hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ---- signal ---- */
+.signal {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.signal svg {
+  width: 14px;
+  height: 12px;
+  flex-shrink: 0;
+}
+
+.unlit { fill: var(--signal-none); }
+.signal[data-level='weak'] .lit { fill: var(--signal-weak); }
+.signal[data-level='fair'] .lit { fill: var(--signal-fair); }
+.signal[data-level='good'] .lit { fill: var(--signal-good); }
+.signal[data-level='strong'] .lit { fill: var(--signal-strong); }
+
+/* ---- hours ---- */
+.hours {
+  display: inline-flex;
+  gap: 1px;
+  vertical-align: middle;
+}
+
+.hours > span {
+  width: 4px;
+  height: 14px;
+  border-radius: 1px;
+}
+
+.fill {
+  display: flex;
+}
+
+.fill > span {
+  flex: 1;
+  height: 6px;
+}
+
+.up { background: var(--status-success); }
+.partial { background: var(--status-warning); }
+.down { background: var(--status-error); }
+.none { background: var(--border-secondary); }

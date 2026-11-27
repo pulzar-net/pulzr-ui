@@ -1,0 +1,264 @@
+/* ================================================================
+   Pulzr console design tokens
+
+   One set for the Pulzr Cloud console and the PulzrOS gateway console,
+   so the two read as one product. Each console imports this file first
+   and keeps only what is its own after it.
+
+   Surfaces are layered: the page's canvas is the lowest, the sidebar and
+   the bars sit on the panel, cards are raised off the canvas with a short
+   shadow, and a device's image stands on a stage. Graphite rather than
+   navy: neutral grays let the status and radio colors carry meaning.
+
+   Dark follows the browser. `html.dark` is honored too, for a console
+   that sets it from the same preference.
+   ================================================================ */
+
+:root {
+  color-scheme: light;
+
+  /* ---- surfaces, lowest first ---- */
+  --bg-canvas:      #f4f5f7;
+  --bg-primary:     #ffffff;
+  --bg-secondary:   #f8f9fb;
+  --bg-tertiary:    #eef0f3;
+  --bg-elevated:    #ffffff;
+  --bg-modal:       #ffffff;
+  --bg-panel:       #ffffff;
+  --bg-raised:      #ffffff;
+  --bg-inset:       #eef0f3;
+  --bg-stage:       #f4f5f7;
+  --bg-backdrop:    #e2e5ea;
+
+  /* ---- text ---- */
+  --text-primary:   #101828;
+  --text-secondary: #475467;
+  --text-tertiary:  #667085;
+  --text-inverse:   #ffffff;
+
+  /* ---- borders ---- */
+  --border-primary:   #e4e7ec;
+  --border-secondary: #d0d5dd;
+  --border-focus:     #12a66a;
+
+  /* ---- cards ---- */
+  --card-bg:           #ffffff;
+  --card-border:       #e4e7ec;
+  --card-shadow:       0 1px 2px rgba(16, 24, 40, .05), 0 4px 12px -6px rgba(16, 24, 40, .10);
+  --card-shadow-hover: 0 2px 4px rgba(16, 24, 40, .06), 0 10px 24px -10px rgba(16, 24, 40, .16);
+  --pop-shadow:        0 12px 32px -8px rgba(16, 24, 40, .18), 0 2px 6px rgba(16, 24, 40, .08);
+
+  /* ---- status ---- */
+  --status-success: #12a66a;
+  --status-warning: #b7791f;
+  --status-error:   #d92d20;
+  --status-info:    #1f6fe0;
+  --status-off:     #98a2b3;
+
+  /* ---- accent ---- */
+  --accent:         #12a66a;
+  --accent-hover:   #0e8a58;
+  --accent-subtle:  rgba(18, 166, 106, .08);
+  --accent-ink:     #04130c;
+
+  /* ---- section hues: a sidebar section's icon, its open row, its tables ---- */
+  --hue-green:  #0e8a58;
+  --hue-blue:   #1f6fe0;
+  --hue-violet: #7c3aed;
+  --hue-teal:   #0d9488;
+  --hue-amber:  #b7791f;
+  --hue-rose:   #e11d48;
+  --hue-sky:    #0284c7;
+  --hue-indigo: #4f46e5;
+  --hue-slate:  #667085;
+
+  /* ---- radios: one hue each, wherever a radio is drawn ----
+     Never alone: every radio color travels with its glyph or its name. */
+  --proto-lorawan:  #1f6fe0;
+  --proto-ble:      #9b3fb5;
+  --proto-zigbee:   #d2551d;
+  --proto-zwave:    #13895f;
+  --proto-thread:   #a37f12;
+  --proto-cellular: #0e9bbd;
+  --proto-wifi:     #4f46e5;
+  --proto-lan:      #0891b2;
+  --proto-wire:     #667085;
+
+  /* ---- signal, weak to strong ---- */
+  --signal-none:   #d0d5dd;
+  --signal-weak:   #d92d20;
+  --signal-fair:   #b7791f;
+  --signal-good:   #65a30d;
+  --signal-strong: #12a66a;
+
+  /* ---- a chart's series, in order ---- */
+  --series-1: #2a78d6;
+  --series-2: #eb6834;
+  --series-3: #1baf7a;
+  --series-4: #eda100;
+  --series-5: #e87ba4;
+  --series-6: #008300;
+
+  /* ---- labels: the small heading over a section, a tile, a group ---- */
+  --label-size:   11px;
+  --label-weight: 600;
+  --label-color:  var(--text-secondary);
+
+  /* ---- shape ---- */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+  --radius-xl: 12px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+
+    --bg-canvas:      #0a0c10;
+    --bg-primary:     #0f1217;
+    --bg-secondary:   #13171e;
+    --bg-tertiary:    #191e27;
+    --bg-elevated:    #191e27;
+    --bg-modal:       #13171e;
+    --bg-panel:       #0f1217;
+    --bg-raised:      #191e27;
+    --bg-inset:       #0b0e12;
+    --bg-stage:       #171c24;
+    --bg-backdrop:    #050608;
+
+    --text-primary:   #e7eaf0;
+    --text-secondary: #9aa3b2;
+    --text-tertiary:  #6b7383;
+    --text-inverse:   #0a0c10;
+
+    --border-primary:   #1f242d;
+    --border-secondary: #2c333f;
+    --border-focus:     #3ecf8e;
+
+    --card-bg:           #13171e;
+    --card-border:       #1f242d;
+    --card-shadow:       inset 0 1px 0 rgba(255, 255, 255, .04), 0 1px 2px rgba(0, 0, 0, .5), 0 10px 24px -14px rgba(0, 0, 0, .8);
+    --card-shadow-hover: inset 0 1px 0 rgba(255, 255, 255, .05), 0 2px 4px rgba(0, 0, 0, .5), 0 14px 30px -14px rgba(0, 0, 0, .9);
+    --pop-shadow:        0 12px 32px -8px rgba(0, 0, 0, .7), 0 2px 6px rgba(0, 0, 0, .4);
+
+    --status-success: #3ecf8e;
+    --status-warning: #f5b942;
+    --status-error:   #f26d6d;
+    --status-info:    #4c9aff;
+    --status-off:     #6b7383;
+
+    --accent:         #3ecf8e;
+    --accent-hover:   #2fb77a;
+    --accent-subtle:  rgba(62, 207, 142, .08);
+
+    --hue-green:  #3ecf8e;
+    --hue-blue:   #4c9aff;
+    --hue-violet: #a78bfa;
+    --hue-teal:   #2dd4bf;
+    --hue-amber:  #f5b942;
+    --hue-rose:   #fb7185;
+    --hue-sky:    #38bdf8;
+    --hue-indigo: #818cf8;
+    --hue-slate:  #9aa3b2;
+
+    --proto-lorawan:  #3d8bfd;
+    --proto-ble:      #c26bd6;
+    --proto-zigbee:   #e0662f;
+    --proto-zwave:    #22b07d;
+    --proto-thread:   #d4a72c;
+    --proto-cellular: #22c3e6;
+    --proto-wifi:     #818cf8;
+    --proto-lan:      #22b8d8;
+    --proto-wire:     #9aa3b2;
+
+    --signal-none:   #2c333f;
+    --signal-weak:   #f26d6d;
+    --signal-fair:   #f5b942;
+    --signal-good:   #a3e635;
+    --signal-strong: #3ecf8e;
+
+    --series-1: #3987e5;
+    --series-2: #d95926;
+    --series-3: #199e70;
+    --series-4: #c98500;
+    --series-5: #d55181;
+    --series-6: #008300;
+  }
+}
+
+/* The same dark values for a console that sets the class itself. Kept in
+   step with the block above by the package's check. */
+html.dark {
+  color-scheme: dark;
+
+  --bg-canvas:      #0a0c10;
+  --bg-primary:     #0f1217;
+  --bg-secondary:   #13171e;
+  --bg-tertiary:    #191e27;
+  --bg-elevated:    #191e27;
+  --bg-modal:       #13171e;
+  --bg-panel:       #0f1217;
+  --bg-raised:      #191e27;
+  --bg-inset:       #0b0e12;
+  --bg-stage:       #171c24;
+  --bg-backdrop:    #050608;
+
+  --text-primary:   #e7eaf0;
+  --text-secondary: #9aa3b2;
+  --text-tertiary:  #6b7383;
+  --text-inverse:   #0a0c10;
+
+  --border-primary:   #1f242d;
+  --border-secondary: #2c333f;
+  --border-focus:     #3ecf8e;
+
+  --card-bg:           #13171e;
+  --card-border:       #1f242d;
+  --card-shadow:       inset 0 1px 0 rgba(255, 255, 255, .04), 0 1px 2px rgba(0, 0, 0, .5), 0 10px 24px -14px rgba(0, 0, 0, .8);
+  --card-shadow-hover: inset 0 1px 0 rgba(255, 255, 255, .05), 0 2px 4px rgba(0, 0, 0, .5), 0 14px 30px -14px rgba(0, 0, 0, .9);
+  --pop-shadow:        0 12px 32px -8px rgba(0, 0, 0, .7), 0 2px 6px rgba(0, 0, 0, .4);
+
+  --status-success: #3ecf8e;
+  --status-warning: #f5b942;
+  --status-error:   #f26d6d;
+  --status-info:    #4c9aff;
+  --status-off:     #6b7383;
+
+  --accent:         #3ecf8e;
+  --accent-hover:   #2fb77a;
+  --accent-subtle:  rgba(62, 207, 142, .08);
+
+  --hue-green:  #3ecf8e;
+  --hue-blue:   #4c9aff;
+  --hue-violet: #a78bfa;
+  --hue-teal:   #2dd4bf;
+  --hue-amber:  #f5b942;
+  --hue-rose:   #fb7185;
+  --hue-sky:    #38bdf8;
+  --hue-indigo: #818cf8;
+  --hue-slate:  #9aa3b2;
+
+  --proto-lorawan:  #3d8bfd;
+  --proto-ble:      #c26bd6;
+  --proto-zigbee:   #e0662f;
+  --proto-zwave:    #22b07d;
+  --proto-thread:   #d4a72c;
+  --proto-cellular: #22c3e6;
+  --proto-wifi:     #818cf8;
+  --proto-lan:      #22b8d8;
+  --proto-wire:     #9aa3b2;
+
+  --signal-none:   #2c333f;
+  --signal-weak:   #f26d6d;
+  --signal-fair:   #f5b942;
+  --signal-good:   #a3e635;
+  --signal-strong: #3ecf8e;
+
+  --series-1: #3987e5;
+  --series-2: #d95926;
+  --series-3: #199e70;
+  --series-4: #c98500;
+  --series-5: #d55181;
+  --series-6: #008300;
+}

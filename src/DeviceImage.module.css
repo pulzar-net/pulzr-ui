@@ -1,0 +1,61 @@
+/* A device stands on a stage: a recessed surface a step off the card, so a
+   white case reads as an object in either theme. */
+.frame {
+  --device-body: #ffffff;
+  --device-edge: #b4bcc8;
+  --device-band: #eef1f5;
+  --device-floor: rgba(16, 24, 40, .12);
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+@media (prefers-color-scheme: dark) {
+  .frame {
+    --device-body: #e8ebf0;
+    --device-edge: #9aa3b2;
+    --device-band: #d7dce4;
+    --device-floor: rgba(0, 0, 0, .55);
+  }
+}
+
+:global(html.dark) .frame {
+  --device-body: #e8ebf0;
+  --device-edge: #9aa3b2;
+  --device-band: #d7dce4;
+  --device-floor: rgba(0, 0, 0, .55);
+}
+
+.stage {
+  background: var(--bg-stage);
+  box-shadow: inset 0 0 0 1px var(--border-primary);
+}
+
+.xs { width: 30px; height: 22px; border-radius: 5px; }
+.sm { width: 56px; height: 42px; border-radius: 7px; }
+.md { width: 150px; height: 104px; border-radius: 8px; }
+.lg { width: 240px; height: 160px; border-radius: 10px; }
+
+.xs .drawing { width: 28px; }
+.sm .drawing { width: 52px; }
+.md .drawing { width: 130px; }
+.lg .drawing { width: 200px; }
+
+.frame img {
+  max-width: 88%;
+  max-height: 88%;
+  object-fit: contain;
+}
+
+.floor { fill: var(--device-floor); }
+.body { fill: var(--device-body); stroke: var(--device-edge); stroke-width: 1; }
+.band { fill: var(--device-band); }
+.antenna { fill: var(--device-edge); }
+.led { fill: var(--status-success); }
+.ledDim { fill: var(--device-edge); }
+.ring { fill: none; stroke: var(--status-success); stroke-width: 1.6; }
+.pcb { fill: #2f6b4a; stroke: #24543a; stroke-width: 1; }
+.chipDark { fill: #20252c; }
+.port { fill: #c9ced6; stroke: #9aa3b2; stroke-width: .8; }
+.header { fill: #c9a227; }

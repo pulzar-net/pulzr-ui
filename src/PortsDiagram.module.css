@@ -1,0 +1,150 @@
+/* The case's face: a recessed panel, the connectors in one group and the
+   jacks in another, each a tile with its name under it. */
+.face {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding: 10px;
+  border-radius: var(--radius-lg);
+  background: var(--bg-inset);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, .18), inset 0 0 0 1px var(--border-primary);
+}
+
+.group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.group + .group {
+  padding-left: 14px;
+  border-left: 1px solid var(--border-primary);
+}
+
+.connector,
+.jack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  min-width: 52px;
+  padding: 6px 4px 5px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  background: none;
+  color: inherit;
+  font: inherit;
+}
+
+button.jack {
+  cursor: pointer;
+}
+
+button.jack:hover,
+.jack.lit {
+  border-color: var(--border-secondary);
+  background: var(--bg-raised);
+}
+
+.jack.selected {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent);
+  background: var(--bg-raised);
+}
+
+.socketBox {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 28px;
+  border-radius: 5px;
+  box-shadow: inset 0 0 0 1px var(--border-secondary);
+}
+
+.socketBox svg {
+  width: 15px;
+  height: 15px;
+  fill: none;
+  stroke: var(--text-tertiary);
+  stroke-width: 2.1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.on .socketBox {
+  background: color-mix(in srgb, var(--c) 18%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c) 55%, transparent);
+}
+
+.on .socketBox svg {
+  stroke: var(--c);
+}
+
+.off .socketBox svg {
+  opacity: .5;
+}
+
+.rj45 {
+  width: 34px;
+  height: 28px;
+}
+
+.housing {
+  fill: var(--bg-raised);
+  stroke: var(--border-secondary);
+  stroke-width: 1;
+}
+
+.socket {
+  fill: var(--bg-canvas);
+  stroke: var(--border-secondary);
+  stroke-width: 1;
+}
+
+.ledLink,
+.ledAct {
+  fill: var(--border-secondary);
+}
+
+.gigabit .ledLink,
+.gigabit .ledAct { fill: var(--status-success); }
+.fast .ledLink,
+.fast .ledAct { fill: var(--status-warning); }
+
+.name {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+.meta {
+  display: inline-flex;
+  gap: 4px;
+  font-size: 10.5px;
+  color: var(--text-tertiary);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.gigabit .meta { color: var(--status-success); }
+.fast .meta { color: var(--status-warning); }
+
+.poe {
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.role {
+  font-size: 10.5px;
+  color: var(--text-secondary);
+}
+
+.connector .name {
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.on .name {
+  color: var(--text-primary);
+}

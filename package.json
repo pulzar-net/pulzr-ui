@@ -1,0 +1,44 @@
+{
+  "name": "@pulzr/ui",
+  "version": "0.1.0",
+  "description": "The Pulzr consoles' design language: tokens, status, radio icons, device images and the ports diagram, shared by the Pulzr Cloud console and the PulzrOS gateway console. Shipped as source; consumers compile it.",
+  "license": "MIT",
+  "author": "Pulzar LLC",
+  "homepage": "https://github.com/pulzar-net/pulzr-ui#readme",
+  "bugs": "https://github.com/pulzar-net/pulzr-ui/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pulzar-net/pulzr-ui.git"
+  },
+  "keywords": [
+    "pulzr",
+    "pulzros",
+    "react",
+    "design-tokens",
+    "iot",
+    "gateway"
+  ],
+  "type": "module",
+  "files": [
+    "src"
+  ],
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "exports": {
+    ".": "./src/index.ts",
+    "./tokens.css": "./src/tokens.css",
+    "./package.json": "./package.json"
+  },
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "react": "^18.3.1",
+    "typescript": "~5.8.3"
+  },
+  "scripts": {
+    "check": "tsc --noEmit && node scripts/check-tokens.mjs"
+  }
+}

@@ -50,6 +50,9 @@ export default function PortsDiagram({
   onSelect?: (name: string) => void;
   onHover?: (name: string | null) => void;
 }) {
+  // Without live ports the jacks are the case's layout: drawn unlit and with
+  // no link word, since nothing has said whether a cable is in.
+  const live = ports != null;
   const jacks: DiagramPort[] = ports ?? hardware?.ethernet?.map((p) => ({ name: p.name, label: p.label, up: false, poe: p.poe })) ?? [];
   const poe = new Set(hardware?.ethernet?.filter((p) => p.poe).map((p) => p.name));
   const connectors = hardware?.connectors ?? [];
@@ -85,13 +88,14 @@ export default function PortsDiagram({
                 </svg>
                 <span className={styles.name}>{p.label}</span>
                 <span className={styles.meta}>
-                  {p.up ? speedText(p.speed) ?? 'Up' : 'No cable'}
+                  {!live ? null : p.up ? speedText(p.speed) ?? 'Up' : 'No cable'}
                   {(p.poe || poe.has(p.name)) && <span className={styles.poe}>PoE</span>}
                 </span>
                 {p.role && <span className={styles.role}>{ROLE[p.role]}</span>}
               </>
             );
-            const label = `${p.label}, ${p.up ? speedText(p.speed) ?? 'link up' : 'no cable'}${p.role ? `, ${ROLE[p.role]}` : ''}`;
+            const link = !live ? null : p.up ? speedText(p.speed) ?? 'link up' : 'no cable';
+            const label = [p.label, link, p.role ? ROLE[p.role] : null].filter(Boolean).join(', ');
             return onSelect ? (
               <button key={p.name} type="button" role="listitem" className={cls} aria-label={label} aria-pressed={selected === p.name}
                 onClick={() => onSelect(p.name)} onMouseEnter={() => onHover?.(p.name)} onMouseLeave={() => onHover?.(null)}

@@ -44,6 +44,9 @@ jobs:
           version=$(node -p 'require("./package.json").version')
           if npm view "$name@$version" version >/dev/null 2>&1; then
             echo "$name@$version is already on npm"
+          elif [ -z "$NODE_AUTH_TOKEN" ] && ! npm view "$name" name >/dev/null 2>&1; then
+            # npm attaches a trusted publisher only to a package that exists.
+            echo "::warning::$name is not on npm yet: its first version needs the NPM_TOKEN secret (or a publish by hand); consumers install the tag from GitHub until then"
           else
             npm publish --provenance --access public
           fi

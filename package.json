@@ -1,6 +1,6 @@
 {
   "name": "@pulzr/ui",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "The Pulzr consoles' design language: tokens, status, radio icons, device images and the ports diagram, shared by the Pulzr Cloud console and the PulzrOS gateway console. Shipped as source; consumers compile it.",
   "license": "MIT",
   "author": "Pulzar LLC",

@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import type { Hardware, HardwareForm } from './hardware';
 import styles from './DeviceImage.module.css';
 
@@ -21,10 +22,17 @@ export default function DeviceImage({
 }) {
   const label = hardware?.name ?? name ?? 'Device';
   const photo = hardware?.photo;
+  // The hosted copy first, then the device's own, then the drawing: each
+  // failed load steps down one.
+  const sources = photo ? [photo.src, photo.fallback].filter((s): s is string => !!s) : [];
+  const [tried, setTried] = useState(0);
+  useEffect(() => setTried(0), [photo?.src, photo?.fallback]);
+  const src = sources[tried];
   return (
-    <span className={`${styles.frame} ${styles[size]} ${stage ? styles.stage : ''} ${photo ? styles.photo : ''}`}>
-      {photo ? (
-        <img src={photo.src} alt={label} title={`${label}. Photo: ${photo.credit}, ${photo.license}`} loading="lazy" />
+    <span className={`${styles.frame} ${styles[size]} ${stage ? styles.stage : ''} ${src ? styles.photo : ''}`}>
+      {photo && src ? (
+        <img src={src} alt={label} title={`${label}. Photo: ${photo.credit}, ${photo.license}`} loading="lazy"
+          onError={() => setTried((n) => n + 1)} />
       ) : (
         <Drawing form={hardware?.form ?? 'indoor'} antennas={hardware?.antennas ?? 1} label={label} />
       )}

@@ -27,8 +27,12 @@ export interface HardwarePort {
 export type HardwareForm = 'indoor' | 'outdoor' | 'router' | 'puck' | 'sbc' | 'sensor';
 
 export interface Photo {
-  /** A URL the console can load. */
+  /** A URL the console can load: a hosted copy, so a device's console never
+      serves its own photo over a metered link. */
   src: string;
+  /** Where to load it from when `src` cannot be reached: the device's own
+      copy, for a browser with no internet beside it. */
+  fallback?: string;
   /** Who made it, and under what terms: shown on hover and on the attributions list. */
   credit: string;
   license: string;

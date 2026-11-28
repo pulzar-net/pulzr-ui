@@ -129,7 +129,8 @@
 
     --text-primary:   #e7eaf0;
     --text-secondary: #9aa3b2;
-    --text-tertiary:  #6b7383;
+    /* 4.7:1 on the raised surface, the least this text gets: AA for small text. */
+    --text-tertiary:  #808898;
     --text-inverse:   #0a0c10;
 
     --border-primary:   #1f242d;
@@ -206,7 +207,7 @@ html.dark {
 
   --text-primary:   #e7eaf0;
   --text-secondary: #9aa3b2;
-  --text-tertiary:  #6b7383;
+  --text-tertiary:  #808898;
   --text-inverse:   #0a0c10;
 
   --border-primary:   #1f242d;

@@ -32,12 +32,6 @@
   box-shadow: inset 0 0 0 1px var(--border-primary);
 }
 
-/* Makers shoot on white, so a photo keeps its white in both themes, as a
-   maker's logo does: a white tile rather than a white box cut into a dark
-   stage. */
-.photo {
-  background: #ffffff;
-}
 
 .xs { width: 30px; height: 22px; border-radius: 5px; }
 .sm { width: 56px; height: 42px; border-radius: 7px; }
@@ -49,10 +43,24 @@
 .md .drawing { width: 130px; }
 .lg .drawing { width: 200px; }
 
+/* A photo is the device cut out of its background, standing on the stage
+   as a drawing does. A soft shadow grounds it; in dark a hairline of light
+   around its edge keeps a black board or a dark case off the dark stage. */
 .frame img {
   max-width: 88%;
   max-height: 88%;
   object-fit: contain;
+  filter: drop-shadow(0 2px 4px rgba(16, 24, 40, .14));
+}
+
+@media (prefers-color-scheme: dark) {
+  .frame img {
+    filter: drop-shadow(0 0 .5px rgba(255, 255, 255, .45)) drop-shadow(0 3px 8px rgba(0, 0, 0, .45));
+  }
+}
+
+:global(html.dark) .frame img {
+  filter: drop-shadow(0 0 .5px rgba(255, 255, 255, .45)) drop-shadow(0 3px 8px rgba(0, 0, 0, .45));
 }
 
 .floor { fill: var(--device-floor); }

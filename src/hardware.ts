@@ -28,7 +28,8 @@ export type HardwareForm = 'indoor' | 'outdoor' | 'router' | 'puck' | 'sbc' | 's
 
 export interface Photo {
   /** A URL the console can load: a hosted copy, so a device's console never
-      serves its own photo over a metered link. */
+      serves its own photo over a metered link. The device cut out of its
+      background (transparent), so it stands on either theme's stage. */
   src: string;
   /** Where to load it from when `src` cannot be reached: the device's own
       copy, for a browser with no internet beside it. */

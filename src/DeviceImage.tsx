@@ -29,7 +29,7 @@ export default function DeviceImage({
   useEffect(() => setTried(0), [photo?.src, photo?.fallback]);
   const src = sources[tried];
   return (
-    <span className={`${styles.frame} ${styles[size]} ${stage ? styles.stage : ''} ${src ? styles.photo : ''}`}>
+    <span className={`${styles.frame} ${styles[size]} ${stage ? styles.stage : ''}`}>
       {photo && src ? (
         <img src={src} alt={label} title={`${label}. Photo: ${photo.credit}, ${photo.license}`} loading="lazy"
           onError={() => setTried((n) => n + 1)} />

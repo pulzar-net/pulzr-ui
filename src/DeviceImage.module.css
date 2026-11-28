@@ -5,8 +5,11 @@
   --device-edge: #b4bcc8;
   --device-band: #eef1f5;
   --device-floor: rgba(16, 24, 40, .12);
-  display: inline-grid;
-  place-items: center;
+  /* Flex, not grid: a grid's auto row leaves a photo's max-height: 88%
+     unresolved, and a tall photo spilled past the frame. */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
   overflow: hidden;
 }
